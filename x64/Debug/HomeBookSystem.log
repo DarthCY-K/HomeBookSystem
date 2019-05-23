@@ -1,19 +1,14 @@
 ﻿cl : 命令行 warning D9025: 正在重写“/sdl”(用“/GS-”)
   main.cpp
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(132): warning C4778: “fprintf”: 格式字符串“%l\t”未终止
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(132): warning C4474: fprintf: 格式字符串中传递的参数太多
-  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(132): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(152): warning C4778: “fscanf”: 格式字符串“%l”未终止
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(152): warning C4474: fscanf: 格式字符串中传递的参数太多
-  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(152): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(405): warning C4805: “==”: 在操作中将类型“int”与类型“bool”混合不安全
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(407): warning C4778: “printf”: 格式字符串“%l\n”未终止
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(407): warning C4474: printf: 格式字符串中传递的参数太多
-  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(407): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(425): warning C4778: “scanf”: 格式字符串“%l”未终止
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(425): warning C4474: scanf: 格式字符串中传递的参数太多
-  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(425): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
-C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(509): warning C4473: “printf”: 没有为格式字符串传递足够的参数
-  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(509): note: 占位符和其参数预计 1 可变参数，但提供的却是 0 参数
-  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(509): note: 缺失的可变参数 1 为格式字符串“%s”所需
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(442): warning C4805: “==”: 在操作中将类型“int”与类型“bool”混合不安全
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(444): warning C4778: “printf”: 格式字符串“%l\n”未终止
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(444): warning C4474: printf: 格式字符串中传递的参数太多
+  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(444): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(462): warning C4778: “scanf”: 格式字符串“%l”未终止
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(462): warning C4474: scanf: 格式字符串中传递的参数太多
+  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(462): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(593): warning C4474: scanf: 格式字符串中传递的参数太多
+  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(593): note: 占位符和其参数预计 1 可变参数，但提供的却是 2 参数
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(604): warning C4474: scanf: 格式字符串中传递的参数太多
+  C:\Users\Regression\Desktop\开发学习\HomeBookSystem\main.cpp(604): note: 占位符和其参数预计 1 可变参数，但提供的却是 2 参数
   HomeBookSystem.vcxproj -> C:\Users\Regression\Desktop\开发学习\HomeBookSystem\x64\Debug\HomeBookSystem.exe

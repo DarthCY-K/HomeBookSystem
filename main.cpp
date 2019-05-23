@@ -30,8 +30,10 @@ struct BookInf
 
 int UserInfReadF();
 int UserInfSaveF(int i);
+int UserInfSave_All_F();
 int BookInfReadF();
 int BookInfSaveF(int i);
+int BookInfSave_All_F();
 
 void LoginF();
 void RegisterF();
@@ -89,7 +91,7 @@ int UserInfReadF()
 		printf("can not open the file\n");
 		return 1;									//文件打开失败，返回一个1
 	}
-	while(!feof(fp))
+	while (!feof(fp) && i < 100)
 	{
 		fscanf(fp, "%s", UserInf[i].User_Account);
 		fscanf(fp, "%s", UserInf[i].User_Password);
@@ -110,13 +112,36 @@ int UserInfSaveF(int i)
 		printf("can not open the file\n");
 		return 1;									//文件打开失败，返回一个1
 	}
-	while (!feof(fp))
+	bool doOnce = false;
+	if(!feof(fp))
+		do {
+				fprintf(fp, "%s\t", UserInf[i].User_Account);
+				fprintf(fp, "%s\t", UserInf[i].User_Password);
+				fprintf(fp, "%s\t", UserInf[i].User_Email);
+				fprintf(fp, "%d\t", UserInf[i].index);
+				fprintf(fp, "%d\n", UserInf[i].Admin);
+		} while (doOnce != false);
+	fclose(fp);
+	return 0;
+}
+
+int UserInfSave_All_F()
+{
+	int i = 0;
+	FILE* fp;
+	if (fopen_s(&fp, "UserInf.darthcy", "w"))
+	{
+		printf("can not open the file\n");
+		return 1;									//文件打开失败，返回一个1
+	}
+	while (!feof(fp) && i < 100 && UserInf[i].index == 1)
 	{
 		fprintf(fp, "%s\t", UserInf[i].User_Account);
 		fprintf(fp, "%s\t", UserInf[i].User_Password);
 		fprintf(fp, "%s\t", UserInf[i].User_Email);
 		fprintf(fp, "%d\t", UserInf[i].index);
 		fprintf(fp, "%d\n", UserInf[i].Admin);
+		i++;
 	}
 	fclose(fp);
 	return 0;
@@ -130,12 +155,42 @@ int BookInfSaveF(int i)
 		printf("can not open the file\n");
 		return 1;									//文件打开失败，返回一个1
 	}
-	while (!feof(fp))
+	bool doOnce = false;
+	if (!feof(fp))
 	{
-		fprintf(fp, "%l\t", BookInf[i].book_Number);
-		fprintf(fp, "%s\t", BookInf[i].book_Name);
-		fprintf(fp, "%d\t", BookInf[i].index);
-		fprintf(fp, "%d\t", BookInf[i].exsist);
+		do {
+			fprintf(fp, "%ld\t", BookInf[i].book_Number);
+			fprintf(fp, "%s\t", BookInf[i].book_Name);
+			fprintf(fp, "%s\t", BookInf[i].author_Name);
+			fprintf(fp, "%ld\t", BookInf[i].RuKu_Time);
+			fprintf(fp, "%ld\t", BookInf[i].ChuBan_Time);
+			fprintf(fp, "%d\t", BookInf[i].index);
+			fprintf(fp, "%d\n", BookInf[i].exsist);
+		} while (doOnce != false);
+	}
+	fclose(fp);
+	return 0;
+}
+
+int BookInfSave_All_F()		//文件完全覆写
+{
+	int i = 0;
+	FILE* fp;
+	if (fopen_s(&fp, "BookInf.darthcy", "w"))
+	{
+		printf("can not open the file\n");
+		return 1;									//文件打开失败，返回一个1
+	}
+	while (!feof(fp) && i < 100 && BookInf[i].exsist == 1)
+	{
+			fprintf(fp, "%ld\t", BookInf[i].book_Number);
+			fprintf(fp, "%s\t", BookInf[i].book_Name);
+			fprintf(fp, "%s\t", BookInf[i].author_Name);
+			fprintf(fp, "%ld\t", BookInf[i].RuKu_Time);
+			fprintf(fp, "%ld\t", BookInf[i].ChuBan_Time);
+			fprintf(fp, "%d\t", BookInf[i].index);
+			fprintf(fp, "%d\n", BookInf[i].exsist);
+			i++;
 	}
 	fclose(fp);
 	return 0;
@@ -150,10 +205,13 @@ int BookInfReadF()
 		printf("can not open the file\n");
 		return 1;
 	}
-	while (!feof(fp))
+	while (!feof(fp) && i < 100)
 	{
-		fscanf(fp, "%l", &BookInf[i].book_Number);
+		fscanf(fp, "%ld", &BookInf[i].book_Number);
 		fscanf(fp, "%s", BookInf[i].book_Name);
+		fscanf(fp, "%s", BookInf[i].author_Name);
+		fscanf(fp, "%ld", &BookInf[i].RuKu_Time);
+		fscanf(fp, "%ld", &BookInf[i].ChuBan_Time);
 		fscanf(fp, "%d", &BookInf[i].index);
 		fscanf(fp, "%d", &BookInf[i].exsist);
 		i++;
@@ -377,7 +435,6 @@ void UserSystem()
 			read_TimesBook++;
 		else
 			printf("BookInf.darthcy 文件读取失败，请联系管理员\n");
-
 	}		
 	printf("\n欢迎登入用户系统，请选择您需要的功能\n");
 	printf("1.浏览\t2.借阅\t3.归还\t4.查询\n5.催还\n");
@@ -479,6 +536,13 @@ void CuiHuan()
 void AdminSystem()
 {
 	int Choice = 0;
+	if (read_TimesBook == 0)
+	{
+		if (BookInfReadF() == 0)
+			read_TimesBook++;
+		else
+			printf("BookInf.darthcy 文件读取失败，请联系管理员\n");
+	}
 	printf("\n欢迎登入管理系统，请选择您需要的功能\n");
 	printf("1.书库信息\t2.遗损处理\t3.一键删库\n");
 	scanf("%d", &Choice);
@@ -509,7 +573,7 @@ void YiSun()
 void ShuKuInfF()
 {
 	int choose = 0;
-	printf("您已进入书库信息系统，管理员：%s\n请选择需要使用的功能：\n",);
+	printf("您已进入书库信息系统，管理员。请选择需要使用的功能：\n");
 	Ru$Chu_ReInput:
 	printf("1.入库\t2.出库\n");
 	scanf("%d", &choose);
@@ -535,17 +599,41 @@ void RuKu()
 	char Input_book_Name[20], Input_author_Name[10];
 	long Input_RuKu_Time = 0, Input_ChuBan_Time = 0;
 
-	printf("管理员 %s，您已进入新书入库模块");
-	printf("请输入书籍编号：");
-	scanf("%l", &Input_book_Number);
-	printf("请输入书籍名称：");
-	scanf("%s", Input_book_Name);
-	printf("请输入作者名称：");
-	scanf("%s", Input_author_Name);
-	printf("请输入出版时间：");
-	scanf("%l", &Input_ChuBan_Time);
-	printf("请输入入库时间：");
-	scanf("%l", &Input_RuKu_Time);
+	printf("管理员，您已进入新书入库模块");
+	ReInput_Book_Number:
+	printf("\n请输入书籍编号：");
+	scanf("%ld", &Input_book_Number);
+	for (int i = 0; i < 100; i++)
+	{
+		if (Input_book_Number == BookInf[i].book_Number)
+		{
+			printf("书籍编号和已有书籍编号冲突，请重新输入\n");
+			goto ReInput_Book_Number;
+		}
+
+	}
+	printf("\n请输入书籍名称：");
+	scanf("%s", Input_book_Name, 20);
+	for (int i = 0; i < 100; i++)
+	{
+		if (strcmp(Input_book_Name, BookInf[i].book_Name) == 0)
+		{
+			printf("书籍名称和已有书籍名称冲突，请重新输入\n");
+			goto ReInput_Book_Number;
+		}
+
+	}
+	printf("\n请输入作者名称：");
+	scanf("%s", Input_author_Name,10);
+
+	printf("\n请输入出版时间：");
+	scanf("%ld", &Input_ChuBan_Time);
+
+	printf("\n请输入入库时间：");
+	scanf("%ld", &Input_RuKu_Time);
+
+
+
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -554,13 +642,15 @@ void RuKu()
 			BookInf[i].book_Number = Input_book_Number;
 			strcpy(BookInf[i].book_Name, Input_book_Name);
 			strcpy(BookInf[i].author_Name, Input_author_Name);
+			BookInf[i].RuKu_Time = Input_RuKu_Time;
 			BookInf[i].ChuBan_Time = Input_ChuBan_Time;
 			BookInf[i].index = 1;
 			BookInf[i].exsist = 1;
 			if (BookInfSaveF(i) == 0)
 			{
 				printf("书籍入库成功，即将返回菜单\n");
-				RuKu();
+				ShuKuInfF();
+				exit(0);
 			}
 		}
 	}
@@ -568,5 +658,26 @@ void RuKu()
 
 void ChuKu()
 {
-
+	long Input_book_Number;
+	ReInput_ChuKu_Number:
+	printf("请输入需要出库的书籍编号：");
+	scanf("%ld", &Input_book_Number);
+	for (int i = 0; i < 100; i++)
+	{
+		if (Input_book_Number == BookInf[i].book_Number)
+		{
+			BookInf[i].index = 0;
+			if (BookInfSave_All_F() == 0)
+			{
+				printf("书籍出库成功，即将返回菜单\n");
+				ShuKuInfF();
+				exit(0);
+			}
+		}
+		else if (i == 99 && Input_book_Number != BookInf[i].book_Number)
+		{
+			printf("未在库中找到对应编号书籍，请重新输入\n");
+			goto ReInput_ChuKu_Number;
+		}
+	}
 }
