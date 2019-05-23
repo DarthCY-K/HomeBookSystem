@@ -1,0 +1,3 @@
+﻿  LoginSystem.cpp
+main.obj : error LNK2005: _main 已经在 LoginSystem.obj 中定义
+C:\Users\Regression\Desktop\开发学习\HomeBookSystem\Debug\HomeBookSystem.exe : fatal error LNK1169: 找到一个或多个多重定义的符号
