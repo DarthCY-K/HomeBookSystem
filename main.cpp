@@ -378,7 +378,7 @@ CheckEmail:printf("请输入注册邮箱：");
 				printf("请输入新密码：");
 				scanf("%s", UserInf[i].User_Password);
 
-				if (UserInfSaveF(i) == 0)
+				if (UserInfSave_All_F() == 0)
 				{
 					printf("修改成功！即将返回账号验证系统\n");
 					LoginF();
