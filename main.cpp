@@ -625,7 +625,146 @@ Re_GuiHuan:
 
 void ChaXun(int UserIndex)
 {
+	int Choice = 0;
 
+ReInput_Choice_ChaXun_0:
+	printf("您已进入信息查询模块，%s，请输入需要的功能\n",UserInf[UserIndex].User_Name);
+	printf("1.查看书籍\t2.查看阅读记录\n");
+	scanf("%d", &Choice);
+
+	if (Choice == 1)
+	{
+		long Input_bookNumber = 0;
+		printf("您已进入书籍信息查看模块\n");
+	ReInput_bookNumber_ChaXun_0:
+		printf("请输入书号：");
+		scanf("%ld", &Input_bookNumber);
+
+		for (int i = 0; i < 100; i++)
+		{
+			if (BookInf[i].book_Number == Input_bookNumber)
+			{
+				if (BookInf[i].index == 1)
+				{
+					printf("书籍编号：%ld\n", BookInf[i].book_Number);
+					printf("书籍名字：%s\n", BookInf[i].book_Name);
+					printf("书籍作者：%s\n", BookInf[i].author_Name);
+					printf("出版时间：%ld\n", BookInf[i].ChuBan_Time);
+					printf("书籍状态：在库\n");
+				}
+				else if (BookInf[i].index == 2)
+				{
+					printf("书籍编号：%ld\n", BookInf[i].book_Number);
+					printf("书籍名字：%s\n", BookInf[i].book_Name);
+					printf("书籍作者：%s\n", BookInf[i].author_Name);
+					printf("出版时间：%ld\n", BookInf[i].ChuBan_Time);
+					printf("书籍状态：借出\n");
+				}
+				else if (BookInf[i].index == 3)
+				{
+					printf("书籍编号：%ld\n", BookInf[i].book_Number);
+					printf("书籍名字：%s\n", BookInf[i].book_Name);
+					printf("书籍作者：%s\n", BookInf[i].author_Name);
+					printf("出版时间：%ld\n", BookInf[i].ChuBan_Time);
+					printf("书籍状态：遗损\n");
+				}
+				i = 100;
+			}
+			else if (i = 99)
+			{
+				int Choice = 0;
+				printf("输入的书号不存在\n");
+				printf("1.用户模块\t2.再次输入\n");
+				printf("请输入需要的功能：");
+				scanf("%d", &Choice);
+				if (Choice == 1)
+					UserSystem(UserIndex);
+				else if (Choice == 2)
+					goto ReInput_bookNumber_ChaXun_0;
+				break;
+			}
+		}
+	}
+	else if (Choice == 2)
+	{
+		char Input_userName[32];
+		printf("您已进入用户信息查询模块\n");
+ReInput_UserName_ChaXun_0:
+		printf("请输入用户名：");
+		getchar();
+		fflush(stdin);
+		gets_s(Input_userName, 32);
+
+		for (int i = 0; i < 100; i++)
+		{
+			if (strcmp(UserInf[i].User_Name, Input_userName) == 0)
+			{
+				printf("用户编号：%s", UserInf[i].User_Name);
+				printf("用户邮箱：%s", UserInf[i].User_Email);
+				printf("用户已借书数量：%d", UserInf[i].books_Have);
+				if (UserInf[i].books_Have != 0)
+				{
+					for (int j = 0; j < 5; j++)
+					{
+						if (UserInf[i].books_Have_Number[j] != 0)
+						{
+							for (int k = 0; k < 100; k++)
+							{
+								if (UserInf[i].books_Have_Number[j] == BookInf[k].book_Number)
+								{
+									printf("书籍编号：%ld\n", BookInf[k].book_Number);
+									printf("书籍名字：%s\n", BookInf[k].book_Name);
+									printf("书籍作者：%s\n", BookInf[k].author_Name);
+									printf("出版时间：%ld\n", BookInf[k].ChuBan_Time);
+									k = 100;
+								}
+							}
+						}
+					}
+				}
+				i = 100;
+			}
+			else if (i == 99)
+			{
+				int Choice = 0;
+				printf("找不到输入的用户名，请选择\n");
+			ReInput_Choice_ChaXun_2:
+				printf("1.重新输入用户名\t2.返回用户界面\n");
+				scanf("%d", &Choice);
+				if (Choice == 1)
+					goto ReInput_UserName_ChaXun_0;
+				else if (Choice == 2)
+					UserSystem(UserIndex);
+				else
+				{
+					printf("输入有误，请重新输入\n");
+					goto ReInput_Choice_ChaXun_2;
+				}
+
+			}
+
+		}
+	}
+	else
+	{
+		int Choice = 0;
+		printf("输入有误，请选择\n");
+		printf("1.返回查询模块\t2.返回用户界面\n");
+		printf("请输入：");
+		scanf("%d", &Choice);
+
+ReInput_Choice_ChaXun_1:
+		if (Choice == 1)
+			goto ReInput_Choice_ChaXun_0;
+		else if (Choice == 2)
+			UserSystem(UserIndex);
+		else
+		{
+			printf("输入有误，请重新输入：");
+			scanf("%d", &Choice);
+			goto ReInput_Choice_ChaXun_1;
+		}
+	}
 }
 
 void CuiHuan(int UserIndex)
